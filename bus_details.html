@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking</title>
+    <link rel="stylesheet" href="bus_details.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Bus Booking</h1>
+        <div class="input-field">
+            <label for="totalSeats">Total Number of Seats:</label>
+            <input type="number" id="totalSeats" name="totalSeats" min="1" max="32" required>
+        </div>
+        <div class="input-field">
+            <label>Select Seats:</label>
+            <div class="checkboxes" id="checkboxes">
+                <!-- JavaScript will populate checkboxes here -->
+            </div>
+        </div>
+        <div class="input-field">
+            <label for="travelDate">Travel Date:</label>
+            <input type="date" id="travelDate" name="travelDate" required>
+        </div>
+        <div class="input-field">
+            <label for="facility">Facility Option:</label>
+            <select id="facility" name="facility" required>
+                <option value="">Select...</option>
+                <option value="AC">AC</option>
+                <option value="Non-AC">Non-AC</option>
+                <option value="Sleeper">Sleeper</option>
+                <option value="Non-Sleeper">Non-Sleeper</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <center><button onclick="makePayment(event)">Make Payment</button></center>
+        </div>
+    </div>
+
+    <script>
+        function makePayment(event) {
+            event.preventDefault();
+
+            var totalSeats = document.getElementById("totalSeats").value;
+            var travelDate = new Date(document.getElementById("travelDate").value);
+            var currentDate = new Date();
+            var facility = document.getElementById("facility").value;
+
+            if (totalSeats && travelDate && facility) {
+                if (travelDate <= currentDate) {
+                    alert('Booking date must be a future date.');
+                } else {
+                    alert("Payment successful! Your seats have been booked.");
+                    window.location.href = "final_page.html";
+                }
+            } else {
+                alert("All fields are required!");
+            }
+        }
+
+        document.getElementById('totalSeats').addEventListener('change', function() {
+            var totalSeats = parseInt(this.value);
+            var checkboxesContainer = document.getElementById('checkboxes');
+            checkboxesContainer.innerHTML = '';
+            for (var i = 1; i <= totalSeats; i++) {
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = 'seat' + i;
+                checkbox.name = 'seat' + i;
+                checkbox.value = i;
+
+                var label = document.createElement('label');
+                label.setAttribute('for', 'seat' + i);
+                label.textContent = i;
+
+                checkboxesContainer.appendChild(checkbox);
+                checkboxesContainer.appendChild(label);
+            }
+        });
+    </script>
+</body>
+</html>

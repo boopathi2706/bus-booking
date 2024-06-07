@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form onsubmit="event.preventDefault(); check();">
+            <label for="username">Username or Email</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <h4>Create a new account <a href="sign-up.html">Sign Up</a></h4>
+    </div>
+
+    <script>
+        function check() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            
+            if (username && password) {
+                if (password.length < 8) {
+                    alert("Password must be at least 8 characters!");
+                } else {
+                    alert("Login successfully!");
+                    window.location.href = "index.html";
+                }
+            } else {
+                alert("All fields are mandatory!");
+            }
+        }
+    </script>
+</body>
+</html>
